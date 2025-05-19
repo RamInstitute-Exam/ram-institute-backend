@@ -19,7 +19,8 @@ app.use(
   cors({
     origin: [
       "https://institute-website-snowy.vercel.app",
-      "http://localhost:5173"
+      "http://localhost:5173",
+      "https://insitute.vercel.app/",
     ],
     credentials: true
   })
