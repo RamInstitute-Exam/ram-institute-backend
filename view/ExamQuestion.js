@@ -8,7 +8,7 @@ import ExamQuestionstatus from "../model/examQuestion.js"
 import ExamRequest from "../model/examRequest.js"
 import Authenticate from '../auth/Auth.js';
 import StudentExamReport from "../model/StudentExam.js"
-import { ExamsList, ExamSubmit, Questions } from '../Controller/ExamController.js';
+import { ExamsList, ExamSubmit, getAllExams, Questions } from '../Controller/ExamController.js';
 import { AdminReports, ExamDelete, ExamUpdate, GetAllRequests, UnApprovedStudents, UpdateRequestStatus } from '../Controller/AdminController.js';
 import { ExamRequests, getStudentRequests } from '../Controller/StudentController.js';
 const upload = multer(); 
@@ -126,29 +126,29 @@ router.post('/upload-answer-key', upload.single('pdf'), async (req, res) => {
   }
 });
 
-router.get("/exams/:examCode/questions",Authenticate,Questions);
+router.get("/exams/:examCode/questions",Questions);
 
 // After a student completes the exam and submits their answers
-router.post("/student/exam/submit",Authenticate,ExamSubmit );
-
+router.post("/student/exam/submit",ExamSubmit );
+router.get('/all-exams', getAllExams);
 // Update exam
-router.put("/exams/update/:examCode",Authenticate, ExamUpdate);
+router.put("/exams/update/:examCode", ExamUpdate);
 // Delete exam
-router.delete("/exams/delete/:examCode",Authenticate, ExamDelete);
+router.delete("/exams/delete/:examCode", ExamDelete);
 // POST /api/exams/request
 
-router.post('/exams/request',Authenticate,ExamRequests );
+router.post('/exams/request',ExamRequests );
 
 
-router.get("/GetALLRequests",Authenticate,GetAllRequests)
+router.get("/GetALLRequests",GetAllRequests)
 
-router.get('/exams/unapproved/:studentId',Authenticate,UnApprovedStudents );
+router.get('/exams/unapproved/:studentId',UnApprovedStudents );
 
 // GET /exams/list
-router.get('/exams/list',Authenticate,ExamsList);
+router.get('/exams/list',ExamsList);
 
 // PUT /Question/UpdateRequestStatus
-router.put('/UpdateRequestStatus',Authenticate,UpdateRequestStatus);
+router.put('/UpdateRequestStatus',UpdateRequestStatus);
 
 // Get all reports (optionally filter by status)
 router.get("/admin/reports",Authenticate, AdminReports);

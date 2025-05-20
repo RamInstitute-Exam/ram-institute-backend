@@ -18,6 +18,15 @@ export  const ExamsList = async (req, res) => {
   }
 }
 
+export const getAllExams = async (req, res) => {
+  try {
+    const exams = await ExamQuestion.find().sort({ createdAt: -1 });
+    res.status(200).json(exams);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch exams' });
+  }
+};
+
 
 
 

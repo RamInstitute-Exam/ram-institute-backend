@@ -46,10 +46,6 @@ if(!IsPassword){
     return res.status(400).json({message:"Invalid password"})
 }
 const token = jwt.sign({id:user._id,email:user.email},process.env.Secret_key,{expiresIn:'1d'})
-
-
-
-
       res.cookie("token", token, {
       httpOnly: true,
       secure: true,       
