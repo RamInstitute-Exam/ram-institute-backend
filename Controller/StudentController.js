@@ -129,12 +129,12 @@ export const StudentLogin = async (req,res)=>{
 
     const token = jwt.sign({id:User._id,email:User.email,mobileNumber:User.mobileNumber},process.env.Secret_key,{expiresIn:'1d'})
 
-const isProduction = process.env.NODE_ENV === "production"
+// const isProduction = process.env.NODE_ENV === "production"
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction,              // true in production (HTTPS)
-      sameSite: isProduction ? "None" : "Lax",  // Cross-origin requires 'None'
+      secure: true,       
+      sameSite:  "None",  
       maxAge: 24 * 60 * 60 * 1000,
     });
     return res.status(200).json({message:"Login Successfully",User:User._id,Email:User.email
