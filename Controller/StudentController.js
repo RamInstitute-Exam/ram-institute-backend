@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
 import ExamRequest from "../model/examRequest.js";
 import StudentExamReport from "../model/StudentExam.js";
+import ExamQuestion from "../model/Question.js";
 
 
 export const RegisterStudent = async (req, res) => {
@@ -224,7 +225,7 @@ export const getStudentExamStatus = async (req, res) => {
     }
 
     return res.status(200).json({
-      status: status || "not_started",
+      status: status,
       result: studentExam.result || 0,
       correctAnswers: studentExam.correctAnswers || 0,
       wrongAnswers: studentExam.wrongAnswers || 0,
@@ -238,6 +239,32 @@ export const getStudentExamStatus = async (req, res) => {
   }
 };
 
+
+
+
+
+export const getStudentExamStatusById = async (req, res) => {
+  const { studentId } = req.params
+
+  try {
+    // Step 1: Count total active exams (optional: use isActive flag if available)
+    const totalExams = await ExamQuestion.countDocuments({ isActive: true })
+
+    // Step 2: Count how many of those this student has completed
+    const completedExams = await StudentExamReport.countDocuments({
+      studentId,
+      status: 'completed',
+    })
+
+    return res.status(200).json({
+      completed: completedExams,
+      total: totalExams,
+    })
+  } catch (err) {
+    console.error('Error fetching exam status:', err)
+    res.status(500).json({ error: 'Failed to fetch exam status' })
+  }
+}
 
 
 export const getStudentExamResult = async (req, res) => {

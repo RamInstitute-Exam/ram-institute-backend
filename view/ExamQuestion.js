@@ -10,7 +10,7 @@ import Authenticate from '../auth/Auth.js';
 import StudentExamReport from "../model/StudentExam.js"
 import { ExamsList, ExamSubmit, getAllExams, Questions } from '../Controller/ExamController.js';
 import { AdminReports, ExamDelete, ExamUpdate, GetAllRequests, UnApprovedStudents, UpdateRequestStatus } from '../Controller/AdminController.js';
-import { ExamRequests, getStudentRequests } from '../Controller/StudentController.js';
+import { ExamRequests, getStudentExamStatusById, getStudentRequests } from '../Controller/StudentController.js';
 const upload = multer(); 
 
 
@@ -157,4 +157,5 @@ router.get("/student/:studentId/requests", getStudentRequests);
 
 
 
+router.get('/student/:studentId/exam/status',getStudentExamStatusById)
 export default router;

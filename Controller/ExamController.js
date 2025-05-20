@@ -53,11 +53,12 @@ export const ExamSubmit = async (req, res) => {
     }
 
     // If no report exists, create new
+    const now = new Date();
     if (!studentExam) {
       studentExam = new StudentExamReport({
         studentId,
         examCode,
-        startTime: new Date(),
+        startTime: now,
       });
     }
 
@@ -79,12 +80,17 @@ export const ExamSubmit = async (req, res) => {
     const resultStatus = correctAnswers >= passingCriteria ? "passed" : "failed";
 
     // Update report
+    studentExam.totalQuestions = totalQuestions;
     studentExam.correctAnswers = correctAnswers;
     studentExam.wrongAnswers = wrongAnswers;
     studentExam.result = correctAnswers;
     studentExam.status = "completed";
-    studentExam.endTime = new Date();
-    studentExam.autoSubmitted = autoSubmitted; // Optional
+    studentExam.endTime = now;
+    studentExam.autoSubmitted = autoSubmitted;
+
+    // Calculate time taken in seconds
+    const timeTakenInSeconds = Math.floor((now - studentExam.startTime) / 1000);
+    studentExam.timeTakenInSeconds = timeTakenInSeconds;
 
     await studentExam.save();
 
@@ -107,7 +113,7 @@ export const ExamSubmit = async (req, res) => {
         wrongAnswers,
         result: resultStatus,
         score: correctAnswers,
-        timeTakenInSeconds: studentExam.timeTakenInSeconds,
+        timeTakenInSeconds,
         submittedAt: studentExam.endTime,
       }
     });
@@ -117,6 +123,7 @@ export const ExamSubmit = async (req, res) => {
     res.status(500).json({ message: "❌ Internal server error" });
   }
 };
+
 
 export const Questions =  async (req, res) => {
   try {

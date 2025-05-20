@@ -14,6 +14,10 @@ const studentExamSchema = new mongoose.Schema(
       required: true,
     },
 
+totalQuestions:{
+  type:Number,
+  default:0
+},
     answers: {
       type: Map,
       of: String, // Example: { '1': 'A', '2': 'C' }
