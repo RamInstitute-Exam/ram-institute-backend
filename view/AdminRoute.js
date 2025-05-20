@@ -13,7 +13,7 @@ router.post("/Register",RegisterAdmin)
 router.post("/Login",LoginAdmin)
 router.post('/Logout',Logout)
 
-router.get('/dashboard',Authenticate,(req,res)=>{
+router.get('/dashboard',(req,res)=>{
     res.status(200).json({message:`Welcome Admin ${req.user.email}`})
 })
 

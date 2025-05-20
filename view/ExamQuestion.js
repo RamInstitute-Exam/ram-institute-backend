@@ -11,13 +11,13 @@ import StudentExamReport from "../model/StudentExam.js"
 import { ExamsList, ExamSubmit, Questions } from '../Controller/ExamController.js';
 import { AdminReports, ExamDelete, ExamUpdate, GetAllRequests, UnApprovedStudents, UpdateRequestStatus } from '../Controller/AdminController.js';
 import { ExamRequests, getStudentRequests } from '../Controller/StudentController.js';
-const upload = multer(); // no diskStorage, store in memory
+const upload = multer(); 
 
 
 
 router.post('/upload-questions', upload.single('pdf'), async (req, res) => {
   try {
-    const { examCode, examName, examDescription } = req.body;
+    const { examCode, examName, examDescription, category, year, month } = req.body;
 
     if (!req.file) {
       return res.status(400).json({ message: 'PDF file required' });
@@ -62,7 +62,8 @@ router.post('/upload-questions', upload.single('pdf'), async (req, res) => {
       examCode,
       examName,
       examDescription,
-      questions
+      category, year, month,
+      questions,
     });
 
     res.status(201).json({
