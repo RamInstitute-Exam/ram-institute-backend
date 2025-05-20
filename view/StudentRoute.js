@@ -9,17 +9,17 @@ const route = express.Router();
 
 route.post('/Register',RegisterStudent)
 route.post('/Login',StudentLogin)
-route.post('/Logout',Authenticate,StudentLogout)
-route.get('/list',Authenticate,StudentsList)
-route.get('/student-profile/:User',Authenticate,GetStudent)
-route.put('/student-update/:User',Authenticate,StudentUpdate)
-route.get('/Reports',Authenticate,getStudentExamReports)
+route.post('/Logout',StudentLogout)
+route.get('/list',StudentsList)
+route.get('/student-profile/:User',GetStudent)
+route.put('/student-update/:User',StudentUpdate)
+route.get('/Reports',getStudentExamReports)
 
 
-route.get('/student/:studentId/exam/:examCode/status',Authenticate,getStudentExamStatus)
-route.get('/student/:studentId/exam/:examCode/result',Authenticate,getStudentExamResult);
+route.get('/student/:studentId/exam/:examCode/status',getStudentExamStatus)
+route.get('/student/:studentId/exam/:examCode/result',getStudentExamResult);
 
-route.delete('/:id',Authenticate,StudentDeleteById)
+route.delete('/:id',StudentDeleteById)
 
 
 const storage = multer.memoryStorage()

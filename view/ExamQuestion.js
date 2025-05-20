@@ -151,9 +151,9 @@ router.get('/exams/list',ExamsList);
 router.put('/UpdateRequestStatus',UpdateRequestStatus);
 
 // Get all reports (optionally filter by status)
-router.get("/admin/reports",Authenticate, AdminReports);
+router.get("/admin/reports", AdminReports);
 
-router.get("/student/:studentId/requests",Authenticate, getStudentRequests);
+router.get("/student/:studentId/requests", getStudentRequests);
 
 
 
