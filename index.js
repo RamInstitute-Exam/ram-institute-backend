@@ -22,7 +22,8 @@ app.use(
       "https://institute-website-snowy.vercel.app",
       "http://localhost:5173",
       "https://insitute.vercel.app",
-      "https://insitute-raminstitute-exams-projects.vercel.app"
+      "https://insitute-raminstitute-exams-projects.vercel.app",
+      "https://institute-exam.vercel.app"
     ],
     credentials: true
   })
