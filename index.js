@@ -23,7 +23,8 @@ app.use(
       "http://localhost:5173",
       "https://insitute.vercel.app",
       "https://insitute-raminstitute-exams-projects.vercel.app",
-      "https://institute-exam.vercel.app"
+      "https://institute-exam.vercel.app",
+      "https://institute-exam-d4kz-beta.vercel.app"
     ],
     credentials: true
   })
